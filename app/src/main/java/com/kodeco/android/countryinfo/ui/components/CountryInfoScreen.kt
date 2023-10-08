@@ -12,6 +12,9 @@ import com.kodeco.android.countryinfo.data.Country
 import com.kodeco.android.countryinfo.networking.CountryApiService
 import com.kodeco.android.countryinfo.networking.sampleCountries
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
 import retrofit2.Response
 
@@ -35,20 +38,29 @@ fun CountryInfoScreen(
         LaunchedEffect(key1 = "fetch-countries") {
             launch {
                 delay(1_000)
-                state = try {
-                    val countriesResponse = service.getAllCountries()
 
-                    if (countriesResponse.isSuccessful) {
-                        CountryInfoState.Success(countriesResponse.body()!!)
-                    } else {
-                        CountryInfoState.Error(Throwable("Request failed: ${countriesResponse.message()}"))
-                    }
-                } catch (exception: Exception) {
-                    CountryInfoState.Error(exception)
-                }
+                getCountryInfoFlow(service)
+                    .catch { cause -> state = CountryInfoState.Error(cause) }
+                    .collect { value -> state = value }
             }
         }
     }
+}
+
+private fun getCountryInfoFlow(service: CountryApiService): Flow<CountryInfoState> {
+
+    val latestCountries: Flow<CountryInfoState> = flow {
+        val countriesResponse = service.getAllCountries()
+
+        if (countriesResponse.isSuccessful) {
+            emit(CountryInfoState.Success(countriesResponse.body()!!))
+        } else {
+            emit(CountryInfoState.Error(
+                Throwable("Request failed: ${countriesResponse.message()}")
+            ))
+        }
+    }
+    return latestCountries
 }
 
 @Preview
