@@ -15,12 +15,6 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import retrofit2.Response
 
-sealed class CountryInfoState {
-    object Loading : CountryInfoState()
-    data class Success(val countries: List<Country>) : CountryInfoState()
-    data class Error(val error: Throwable) : CountryInfoState()
-}
-
 @Composable
 fun CountryInfoScreen(
     service: CountryApiService,
