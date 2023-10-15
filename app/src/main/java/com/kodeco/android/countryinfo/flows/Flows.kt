@@ -1,4 +1,4 @@
-package com.kodeco.android.countryinfo.ui.components
+package com.kodeco.android.countryinfo.flows
 
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
@@ -7,6 +7,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 object Flows {
+
     private val _tapFlow = MutableStateFlow(0)
     val tapFlow = _tapFlow.asStateFlow()
 

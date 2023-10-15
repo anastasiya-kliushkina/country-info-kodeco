@@ -1,4 +1,4 @@
-package com.kodeco.android.countryinfo.ui.components
+package com.kodeco.android.countryinfo.ui.screens
 
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
@@ -11,6 +11,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.kodeco.android.countryinfo.data.Country
 import com.kodeco.android.countryinfo.networking.CountryApiService
 import com.kodeco.android.countryinfo.networking.sampleCountries
+import com.kodeco.android.countryinfo.ui.components.CountryInfoList
+import com.kodeco.android.countryinfo.ui.components.CountryInfoState
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
@@ -26,8 +28,10 @@ fun CountryInfoScreen(
 
     Surface {
         when (val curState = state) {
-            is CountryInfoState.Loading -> Loading()
-            is CountryInfoState.Success -> CountryInfoList(curState.countries)
+            is CountryInfoState.Loading -> LoadingScreen()
+            is CountryInfoState.Success -> CountryInfoList(curState.countries){
+                state = CountryInfoState.Loading
+            }
             is CountryInfoState.Error -> CountryErrorScreen(curState.error) {
                 state = CountryInfoState.Loading
             }
@@ -55,9 +59,11 @@ private fun getCountryInfoFlow(service: CountryApiService): Flow<CountryInfoStat
         if (countriesResponse.isSuccessful) {
             emit(CountryInfoState.Success(countriesResponse.body()!!))
         } else {
-            emit(CountryInfoState.Error(
-                Throwable("Request failed: ${countriesResponse.message()}")
-            ))
+            emit(
+                CountryInfoState.Error(
+                    Throwable("Request failed: ${countriesResponse.message()}")
+                )
+            )
         }
     }
     return latestCountries

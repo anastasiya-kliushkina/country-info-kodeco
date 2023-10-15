@@ -1,4 +1,4 @@
-package com.kodeco.android.countryinfo.ui.components
+package com.kodeco.android.countryinfo.ui.screens
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.padding
@@ -21,6 +21,7 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.kodeco.android.countryinfo.data.Country
 import com.kodeco.android.countryinfo.networking.sampleCountry
+import com.kodeco.android.countryinfo.flows.Flows
 
 @Composable
 fun CountryDetailsScreen(
@@ -34,7 +35,10 @@ fun CountryDetailsScreen(
                     Text(text = country.commonName)
                 },
                 navigationIcon = {
-                    IconButton(onClick = onNavigateUp) {
+                    IconButton(onClick = {
+                        Flows.tapBack()
+                        onNavigateUp()
+                    }) {
                         Icon(
                             imageVector = Icons.Filled.ArrowBack,
                             contentDescription = "Back",

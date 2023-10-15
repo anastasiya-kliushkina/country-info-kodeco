@@ -35,6 +35,6 @@ fun CountryInfoRow(
 fun CountryInfoRowPreview() {
     CountryInfoRow(
         country = sampleCountry,
-        onClick = {},
+        onClick = {}
     )
 }
