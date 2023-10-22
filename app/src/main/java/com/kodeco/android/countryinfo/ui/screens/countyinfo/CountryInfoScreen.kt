@@ -1,4 +1,4 @@
-package com.kodeco.android.countryinfo.ui.screens
+package com.kodeco.android.countryinfo.ui.screens.countyinfo
 
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
@@ -12,7 +12,8 @@ import com.kodeco.android.countryinfo.data.Country
 import com.kodeco.android.countryinfo.networking.CountryApiService
 import com.kodeco.android.countryinfo.networking.sampleCountries
 import com.kodeco.android.countryinfo.ui.components.CountryInfoList
-import com.kodeco.android.countryinfo.ui.components.CountryInfoState
+import com.kodeco.android.countryinfo.ui.components.CountryError
+import com.kodeco.android.countryinfo.ui.components.Loading
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
@@ -28,11 +29,11 @@ fun CountryInfoScreen(
 
     Surface {
         when (val curState = state) {
-            is CountryInfoState.Loading -> LoadingScreen()
+            is CountryInfoState.Loading -> Loading()
             is CountryInfoState.Success -> CountryInfoList(curState.countries){
                 state = CountryInfoState.Loading
             }
-            is CountryInfoState.Error -> CountryErrorScreen(curState.error) {
+            is CountryInfoState.Error -> CountryError(curState.error) {
                 state = CountryInfoState.Loading
             }
         }

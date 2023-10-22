@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import com.kodeco.android.countryinfo.networking.CountryApiService
-import com.kodeco.android.countryinfo.ui.screens.CountryInfoScreen
+import com.kodeco.android.countryinfo.ui.screens.countyinfo.CountryInfoScreen
 import com.kodeco.android.countryinfo.ui.theme.MyApplicationTheme
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory

@@ -1,4 +1,4 @@
-package com.kodeco.android.countryinfo.ui.screens
+package com.kodeco.android.countryinfo.ui.components
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -16,7 +16,7 @@ import com.kodeco.android.countryinfo.flows.Flows
 import kotlinx.coroutines.flow.StateFlow
 
 @Composable
-fun LoadingScreen() {
+fun Loading() {
     Box(
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center
@@ -42,5 +42,5 @@ fun CounterFlowText(counterFlow: StateFlow<Int>) {
 @Preview
 @Composable
 fun LoadingScreenPreview() {
-    LoadingScreen()
+    Loading()
 }

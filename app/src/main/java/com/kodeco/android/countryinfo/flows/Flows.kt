@@ -20,10 +20,10 @@ object Flows {
     init {
         // Launch a coroutine to update counterFlow every second
         GlobalScope.launch {
-            delay(1000) // delay on update start
+            delay(1000L) // delay on update start
             var counter = 0
             while (true) {
-                delay(1000) // Delay for 1 second
+                delay(1000L) // Delay for 1 second
                 counter++
                 _counterFlow.value = counter
             }
