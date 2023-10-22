@@ -16,7 +16,7 @@ import com.kodeco.android.countryinfo.flows.Flows
 import kotlinx.coroutines.flow.StateFlow
 
 @Composable
-fun Loading() {
+fun Loading(uptime: Int) {
     Box(
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center
@@ -42,5 +42,5 @@ fun CounterFlowText(counterFlow: StateFlow<Int>) {
 @Preview
 @Composable
 fun LoadingScreenPreview() {
-    Loading()
+    Loading(uptime = 1)
 }
