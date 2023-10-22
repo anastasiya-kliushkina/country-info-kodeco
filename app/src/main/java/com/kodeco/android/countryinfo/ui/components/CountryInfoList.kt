@@ -55,18 +55,6 @@ fun CountryInfoList(
                 textAlign = TextAlign.End,
             )
         }
-//        selectedCountry?.let { country ->
-//            CountryDetailsScreen(country) { selectedCountry = null }
-//        } ?: run {
-//            LazyColumn {
-//                items(countries) { country ->
-//                    CountryInfoRow(country) {
-//                        selectedCountry = country
-//                        Flows.tap()
-//                    }
-//                }
-//            }
-//        }
         selectedCountry?.let { country ->
             CountryDetailsScreen(
                 country = country,
