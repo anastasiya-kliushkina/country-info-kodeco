@@ -21,7 +21,6 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.kodeco.android.countryinfo.data.Country
 import com.kodeco.android.countryinfo.networking.sampleCountry
-import com.kodeco.android.countryinfo.flows.Flows
 
 @Composable
 fun CountryDetailsScreen(
@@ -36,7 +35,6 @@ fun CountryDetailsScreen(
                 },
                 navigationIcon = {
                     IconButton(onClick = {
-                        Flows.tapBack()
                         onNavigateUp()
                     }) {
                         Icon(

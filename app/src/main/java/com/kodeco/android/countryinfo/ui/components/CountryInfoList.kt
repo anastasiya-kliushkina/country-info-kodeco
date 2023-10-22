@@ -10,8 +10,8 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -21,7 +21,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.kodeco.android.countryinfo.data.Country
-import com.kodeco.android.countryinfo.flows.Flows
 import com.kodeco.android.countryinfo.networking.sampleCountries
 import com.kodeco.android.countryinfo.ui.screens.countrydetails.CountryDetailsScreen
 
@@ -31,9 +30,8 @@ fun CountryInfoList(
     onRefreshClick: () -> Unit
 ) {
     var selectedCountry: Country? by remember { mutableStateOf(null) }
-
-    val tapCounter = Flows.tapFlow.collectAsState()
-    val backCounter = Flows.backFlow.collectAsState()
+    var tapCounter by remember { mutableIntStateOf(0) }
+    var backCounter by remember { mutableIntStateOf(0) }
 
     Column {
         Row(
@@ -44,7 +42,7 @@ fun CountryInfoList(
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Text(
-                text = "Taps: ${tapCounter.value}",
+                text = "Taps: $tapCounter",
                 textAlign = TextAlign.Start,
             )
             Button(
@@ -53,18 +51,35 @@ fun CountryInfoList(
                 Text(text = "Refresh")
             }
             Text(
-                text = "Back: ${backCounter.value}",
+                text = "Back: $backCounter",
                 textAlign = TextAlign.End,
             )
         }
+//        selectedCountry?.let { country ->
+//            CountryDetailsScreen(country) { selectedCountry = null }
+//        } ?: run {
+//            LazyColumn {
+//                items(countries) { country ->
+//                    CountryInfoRow(country) {
+//                        selectedCountry = country
+//                        Flows.tap()
+//                    }
+//                }
+//            }
+//        }
         selectedCountry?.let { country ->
-            CountryDetailsScreen(country) { selectedCountry = null }
+            CountryDetailsScreen(
+                country = country,
+            ) {
+                selectedCountry = null
+                backCounter++
+            }
         } ?: run {
             LazyColumn {
                 items(countries) { country ->
                     CountryInfoRow(country) {
                         selectedCountry = country
-                        Flows.tap()
+                        tapCounter++
                     }
                 }
             }
