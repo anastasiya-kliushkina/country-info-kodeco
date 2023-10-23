@@ -1,4 +1,4 @@
-package com.kodeco.android.countryinfo.ui.screens
+package com.kodeco.android.countryinfo.ui.components
 
 import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
@@ -12,7 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 
 @Composable
-fun CountryErrorScreen(error: Throwable, onRetry: () -> Unit) {
+fun CountryError(error: Throwable, onRetry: () -> Unit) {
     Column(
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -28,8 +28,8 @@ fun CountryErrorScreen(error: Throwable, onRetry: () -> Unit) {
 
 @Preview
 @Composable
-fun CountryErrorScreenPreview() {
-    CountryErrorScreen(
+fun CountryErrorPreview() {
+    CountryError(
         error = Throwable("Error message"),
         onRetry = {},
     )
